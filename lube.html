@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#8B0000">
+<title>Gruppo Lube &amp; Creo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #8B0000; --red-dark: #6b0000; --red-light: #f5e6e6;
+  --gray-brand: #5a5a5a; --gray-brand-dark: #3a3a3a;
+  --black: #111111; --gray-dark: #2a2a2a; --gray: #666;
+  --gray-light: #f4f4f2; --white: #ffffff; --cream: #faf9f7;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.14);
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--black); min-height:100vh; max-width:430px; margin:0 auto; position:relative; overflow-x:hidden; }
+.header { background:var(--black); color:var(--white); padding:18px 20px 14px; position:sticky; top:0; z-index:100; display:flex; align-items:center; gap:14px; box-shadow:0 2px 16px rgba(0,0,0,0.3); }
+.header-logo { width:38px; height:38px; background:var(--red); border-radius:8px; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:white; flex-shrink:0; }
+.header-text { flex:1; }
+.header-brand { font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:600; letter-spacing:0.3px; line-height:1.2; }
+.header-sub { font-size:10px; color:rgba(255,255,255,0.5); letter-spacing:1.5px; text-transform:uppercase; margin-top:1px; }
+.page { display:none; padding:20px 16px 100px; animation:fadeIn 0.25s ease; }
+.page.active { display:block; }
+#page-home { padding:0 0 100px; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+.section-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:300; color:var(--black); margin-bottom:4px; line-height:1.1; }
+.section-subtitle { font-size:12px; color:var(--gray); letter-spacing:0.5px; margin-bottom:20px; }
+
+/* COMMISSIONI */
+.comm-card { background:var(--white); border-radius:var(--radius); padding:16px; margin-bottom:10px; box-shadow:var(--shadow); cursor:pointer; transition:transform 0.15s; border-left:4px solid transparent; }
+.comm-card:active { transform:scale(0.98); }
+.comm-card.stato-lavorazione { border-left-color:#f59e0b; }
+.comm-card.stato-pronto { border-left-color:#10b981; }
+.comm-card.stato-pianificata { border-left-color:#3b82f6; }
+.comm-card.stato-consegnato { border-left-color:#6b7280; }
+.comm-card.stato-attesa { border-left-color:var(--red); }
+.comm-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
+.comm-id { font-size:11px; color:var(--gray); letter-spacing:0.5px; font-weight:500; }
+.stato-badge { font-size:10px; font-weight:600; padding:3px 8px; border-radius:20px; letter-spacing:0.3px; }
+.badge-lavorazione { background:#fef3c7; color:#92400e; }
+.badge-pronto { background:#d1fae5; color:#065f46; }
+.badge-pianificata { background:#dbeafe; color:#1e40af; }
+.badge-consegnato { background:#f3f4f6; color:#374151; }
+.badge-attesa { background:#fee2e2; color:#991b1b; }
+.comm-name { font-size:14px; font-weight:500; margin-bottom:4px; }
+.comm-meta { font-size:12px; color:var(--gray); display:flex; gap:12px; flex-wrap:wrap; }
+
+/* MODAL */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200; align-items:flex-end; }
+.modal-overlay.open { display:flex; animation:fadeIn 0.2s ease; }
+.modal { background:var(--white); border-radius:20px 20px 0 0; width:100%; max-width:430px; margin:0 auto; padding:24px 20px 40px; max-height:85vh; overflow-y:auto; animation:slideUp 0.3s ease; }
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.modal-handle { width:40px; height:4px; background:#e0e0e0; border-radius:2px; margin:0 auto 20px; }
+.modal-title { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; margin-bottom:4px; line-height:1.3; }
+.modal-id { font-size:12px; color:var(--gray); margin-bottom:20px; }
+.modal-row { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--gray-light); }
+.modal-label { font-size:12px; color:var(--gray); font-weight:500; text-transform:uppercase; letter-spacing:0.5px; }
+.modal-value { font-size:14px; font-weight:500; text-align:right; max-width:60%; }
+.modal-close { width:100%; margin-top:24px; padding:14px; background:var(--black); color:white; border:none; border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; cursor:pointer; }
+.timeline { margin:20px 0; }
+.timeline-step { display:flex; gap:12px; }
+.timeline-left { display:flex; flex-direction:column; align-items:center; }
+.timeline-dot { width:20px; height:20px; border-radius:50%; background:#e0e0e0; display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0; }
+.timeline-dot.done { background:var(--red); color:white; }
+.timeline-dot.active { background:var(--black); color:white; }
+.timeline-line { width:2px; height:32px; background:#e0e0e0; margin:2px 0; }
+.timeline-line.done { background:var(--red); }
+.timeline-content { padding-top:2px; padding-bottom:20px; }
+.timeline-step-name { font-size:13px; font-weight:600; }
+.timeline-step-desc { font-size:11px; color:var(--gray); margin-top:2px; }
+
+/* FORM */
+.form-group { margin-bottom:16px; }
+.form-label { font-size:12px; font-weight:600; color:var(--gray-dark); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:6px; display:block; }
+.form-input, .form-select, .form-textarea { width:100%; padding:13px 16px; border:1.5px solid #e8e8e6; border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:14px; background:var(--white); color:var(--black); outline:none; transition:border-color 0.2s; appearance:none; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--red); }
+.form-textarea { resize:none; height:100px; }
+.form-submit { width:100%; padding:16px; background:var(--red); color:white; border:none; border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:15px; font-weight:600; cursor:pointer; margin-top:8px; transition:background 0.2s; }
+.form-submit:active { background:var(--red-dark); }
+.success-msg { display:none; background:#d1fae5; color:#065f46; padding:16px; border-radius:var(--radius); font-size:14px; font-weight:500; text-align:center; margin-top:12px; }
+
+/* NEGOZI */
+.store-card { background:var(--white); border-radius:var(--radius); overflow:hidden; margin-bottom:14px; box-shadow:var(--shadow); }
+.store-header { background:var(--black); color:white; padding:16px; display:flex; align-items:center; gap:12px; }
+.store-icon { width:36px; height:36px; background:var(--red); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.store-city { font-size:16px; font-weight:600; }
+.store-brand { font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:0.5px; }
+.store-body { padding:16px; }
+.store-info-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--gray-light); }
+.store-info-row:last-child { border-bottom:none; }
+.store-info-icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
+.store-info-text { font-size:13px; color:var(--gray-dark); }
+.store-actions { display:flex; gap:8px; padding:12px 16px 16px; }
+.store-btn { flex:1; padding:10px; border-radius:8px; border:none; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; text-decoration:none; }
+.btn-call { background:var(--red); color:white; }
+.btn-whatsapp { background:#25d366; color:white; }
+.btn-map { background:var(--gray-light); color:var(--black); }
+
+/* TEAM */
+.arreda-card { background:var(--white); border-radius:var(--radius); padding:16px; margin-bottom:10px; box-shadow:var(--shadow); display:flex; align-items:center; gap:14px; }
+.arreda-avatar { width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,var(--red),var(--red-dark)); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:20px; color:white; font-weight:600; flex-shrink:0; }
+.arreda-info { flex:1; }
+.arreda-name { font-size:15px; font-weight:600; margin-bottom:2px; }
+.arreda-store { font-size:12px; color:var(--gray); }
+
+/* CHI SIAMO */
+.about-hero { background:var(--black); border-radius:var(--radius); padding:28px 20px; margin-bottom:16px; text-align:center; position:relative; overflow:hidden; }
+.about-hero::before { content:''; position:absolute; top:-30px; right:-30px; width:120px; height:120px; background:var(--red); border-radius:50%; opacity:0.15; }
+.about-logo-big { width:64px; height:64px; background:var(--red); border-radius:16px; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:600; color:white; margin:0 auto 14px; }
+.about-title { font-family:'Cormorant Garamond',serif; font-size:22px; color:white; font-weight:400; margin-bottom:4px; }
+.about-subtitle { font-size:12px; color:rgba(255,255,255,0.5); letter-spacing:1px; text-transform:uppercase; }
+.about-card { background:var(--white); border-radius:var(--radius); padding:20px; margin-bottom:12px; box-shadow:var(--shadow); }
+.about-card-title { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600; margin-bottom:8px; color:var(--red); }
+.about-card-text { font-size:14px; color:var(--gray-dark); line-height:1.6; }
+.brand-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.brand-chip { padding:6px 14px; background:var(--gray-light); border-radius:20px; font-size:12px; font-weight:500; color:var(--gray-dark); }
+
+/* CONTATTI */
+.contatti-row { display:flex; align-items:center; gap:12px; padding:14px 0; border-bottom:1px solid var(--gray-light); text-decoration:none; color:inherit; }
+.contatti-row:last-child { border-bottom:none; }
+.contatti-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.icon-wa { background:#e7faf0; }
+.icon-ph { background:#e8f0fe; }
+.icon-mail { background:#fce8e6; }
+.contatti-info { flex:1; }
+.contatti-label { font-size:11px; color:var(--gray); font-weight:500; text-transform:uppercase; letter-spacing:0.5px; }
+.contatti-value { font-size:14px; font-weight:500; margin-top:1px; }
+.contatti-arrow { color:var(--gray); font-size:16px; }
+
+/* EMPTY / LOADING */
+.empty-state { text-align:center; padding:48px 24px; }
+.empty-icon { font-size:48px; margin-bottom:12px; }
+.empty-title { font-size:16px; font-weight:600; margin-bottom:6px; }
+.loading { text-align:center; padding:40px 20px; color:var(--gray); font-size:14px; }
+.spinner { width:28px; height:28px; border:3px solid var(--gray-light); border-top-color:var(--red); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 12px; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* BOTTOM NAV */
+.bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; background:var(--white); border-top:1px solid #e8e8e6; display:flex; z-index:100; padding-bottom:env(safe-area-inset-bottom); }
+.bottom-btn { flex:1; padding:10px 4px 8px; border:none; background:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:9px; font-weight:500; color:var(--gray); letter-spacing:0.3px; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:3px; transition:color 0.2s; }
+.bottom-btn .b-icon { font-size:20px; }
+.bottom-btn.active { color:var(--red); }
+
+/* HOME */
+.home-hero { position:relative; height:220px; overflow:hidden; background:linear-gradient(135deg,#1a0000 0%,#4a0000 50%,#8B0000 100%); }
+.home-hero-bg { position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&auto=format&fit=crop&q=60'); background-size:cover; background-position:center; opacity:0.25; }
+.home-hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(17,0,0,0.3) 0%,rgba(17,0,0,0.7) 100%); }
+.home-hero-content { position:relative; z-index:2; padding:24px 20px 20px; display:flex; flex-direction:column; height:100%; justify-content:flex-end; }
+.home-welcome { font-size:12px; color:rgba(255,255,255,0.65); letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+.home-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:300; color:white; line-height:1.2; margin-bottom:6px; }
+.home-subtitle { font-size:12px; color:rgba(255,255,255,0.55); }
+.home-body { padding:20px 16px 0; }
+.home-section-label { font-size:11px; font-weight:600; color:var(--gray); letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; margin-top:8px; }
+.home-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.home-action-card { background:var(--white); border-radius:var(--radius); padding:16px 14px; box-shadow:var(--shadow); cursor:pointer; text-decoration:none; color:var(--black); display:flex; flex-direction:column; gap:8px; transition:transform 0.15s; }
+.home-action-card:active { transform:scale(0.97); }
+.home-action-card.primary { background:var(--red); color:white; }
+.home-action-card .ac-icon { font-size:28px; }
+.home-action-card .ac-title { font-size:13px; font-weight:600; line-height:1.2; }
+.home-action-card .ac-sub { font-size:11px; opacity:0.7; }
+.home-banner { border-radius:var(--radius); overflow:hidden; margin-bottom:20px; position:relative; height:100px; background:linear-gradient(135deg,var(--black) 0%,#3d0000 100%); display:flex; align-items:center; padding:0 20px; text-decoration:none; }
+.home-banner-text { position:relative; z-index:2; }
+.home-banner-title { font-family:'Cormorant Garamond',serif; font-size:18px; color:white; font-weight:600; margin-bottom:2px; letter-spacing:0.5px; }
+.home-banner-sub { font-size:11px; color:rgba(255,255,255,0.6); }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-logo">L</div>
+  <div class="header-text">
+    <div class="header-brand">Gruppo Lube &amp; Creo</div>
+    <div class="header-sub">Cucine &bull; Arredamento</div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <div class="home-hero-bg"></div>
+    <div class="home-hero-overlay"></div>
+    <div class="home-hero-content">
+      <div class="home-welcome">Benvenuto</div>
+      <div class="home-title">Gruppo<br>Lube &amp; Creo</div>
+      <div class="home-subtitle">Cucine e Arredamento &bull; Caserta</div>
+    </div>
+  </div>
+  <div class="home-body">
+    <div class="home-section-label">Accesso rapido</div>
+    <div class="home-actions">
+      <div class="home-action-card primary" onclick="showPage('commissioni',document.querySelectorAll('.bottom-btn')[1])">
+        <div class="ac-icon">&#128230;</div>
+        <div class="ac-title">Le mie commissioni</div>
+        <div class="ac-sub">Traccia il tuo ordine</div>
+      </div>
+      <div class="home-action-card" onclick="showPage('assistenza',document.querySelectorAll('.bottom-btn')[2])">
+        <div class="ac-icon">&#128295;</div>
+        <div class="ac-title">Assistenza</div>
+        <div class="ac-sub">Apri una segnalazione</div>
+      </div>
+      <div class="home-action-card" onclick="showPage('team',document.querySelectorAll('.bottom-btn')[4])">
+        <div class="ac-icon">&#128100;</div>
+        <div class="ac-title">Il tuo venditore</div>
+        <div class="ac-sub">Contatta il team</div>
+      </div>
+      <div class="home-action-card" onclick="showPage('negozi',document.querySelectorAll('.bottom-btn')[3])">
+        <div class="ac-icon">&#127978;</div>
+        <div class="ac-title">Showroom</div>
+        <div class="ac-sub">3 negozi in Campania</div>
+      </div>
+    </div>
+    <div class="home-section-label">Scopri il nostro catalogo</div>
+    <div style="margin-bottom:20px;text-align:center;">
+      <a href="https://www.mondolube.it" target="_blank" style="display:inline-block;background:var(--red);color:white;padding:16px 32px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;text-decoration:none;box-shadow:var(--shadow);letter-spacing:0.3px;">
+        &#127968; Visita mondolube.it
+      </a>
+    </div>
+    <a class="home-banner" href="https://www.mondolube.it" target="_blank">
+      <div class="home-banner-text">
+        <div class="home-banner-title">Lube &amp; Creo Store</div>
+        <div class="home-banner-sub">3 showroom in provincia di Caserta</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- COMMISSIONI -->
+<div class="page" id="page-commissioni">
+  <div id="login-box">
+    <div class="section-title">Le tue commissioni</div>
+    <div class="section-subtitle">Inserisci il tuo codice per accedere</div>
+    <div class="about-card" style="margin-top:8px">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Codice sito</label>
+        <input class="form-input" id="codice-input" type="text" placeholder="es. 4935Ill" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <div id="login-error" style="display:none;color:#991b1b;font-size:13px;margin-top:8px;">&#10060; Codice non trovato. Controlla e riprova.</div>
+      </div>
+      <button class="form-submit" style="margin-top:16px" onclick="accediConCodice()">Accedi</button>
+    </div>
+    <div style="margin-top:16px;background:var(--gray-light);border-radius:var(--radius);padding:14px;font-size:12px;color:var(--gray);line-height:1.6;">
+      Il codice sito si trova in alto a destra sulla tua commissione.
+    </div>
+  </div>
+  <div id="risultati-box" style="display:none">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <button onclick="tornaLogin()" style="background:none;border:none;cursor:pointer;font-size:20px;padding:0;color:var(--gray)">&#8592;</button>
+      <div class="section-title" style="margin-bottom:0">Le tue commissioni</div>
+    </div>
+    <div class="section-subtitle" id="codice-attivo" style="padding-left:30px"></div>
+    <div id="commissioni-list"></div>
+  </div>
+</div>
+
+<!-- ASSISTENZA -->
+<div class="page" id="page-assistenza">
+  <div class="section-title">Assistenza</div>
+  <div class="section-subtitle">Apri una segnalazione</div>
+  <div class="about-card">
+    <div class="form-group">
+      <label class="form-label">Numero commissione</label>
+      <input class="form-input" id="ass-id" type="text" placeholder="es. 439/26">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Nome e cognome</label>
+      <input class="form-input" id="ass-nome" type="text" placeholder="Il tuo nome">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tipo problema</label>
+      <select class="form-select" id="ass-tipo">
+        <option value="">Seleziona&hellip;</option>
+        <option>Ritardo consegna</option>
+        <option>Prodotto difettoso</option>
+        <option>Merce mancante</option>
+        <option>Problema montaggio</option>
+        <option>Altro</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Descrizione</label>
+      <textarea class="form-textarea" id="ass-desc" placeholder="Descrivi il problema&hellip;"></textarea>
+    </div>
+    <button class="form-submit" onclick="inviaAssistenza()">&#128233; Invia segnalazione</button>
+    <div class="success-msg" id="success-msg">&#9989; Segnalazione inviata! Ti contatteremo presto.</div>
+  </div>
+  <div class="about-card" style="margin-top:14px">
+    <div class="about-card-title" style="font-size:15px">Contatto diretto</div>
+    <a class="contatti-row" href="mailto:mastermobilisrl@gmail.com">
+      <div class="contatti-icon icon-mail">&#9993;</div>
+      <div class="contatti-info"><div class="contatti-label">Email</div><div class="contatti-value">mastermobilisrl@gmail.com</div></div>
+      <div class="contatti-arrow">&#8250;</div>
+    </a>
+  </div>
+</div>
+
+<!-- NEGOZI -->
+<div class="page" id="page-negozi">
+  <div class="section-title">Punti vendita</div>
+  <div class="section-subtitle">3 showroom in provincia di Caserta</div>
+
+  <div class="store-card">
+    <div class="store-header">
+      <div class="store-icon">&#127978;</div>
+      <div>
+        <div class="store-city">Lube Caserta</div>
+        <div class="store-brand">LUBE STORE</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="store-info-row"><span class="store-info-icon">&#128205;</span><span class="store-info-text">Via Nazionale Appia, 59 &mdash; 81022 Casagiove (CE)</span></div>
+      <div class="store-info-row"><span class="store-info-icon">&#128222;</span><span class="store-info-text">0823 741288</span></div>
+    </div>
+    <div class="store-actions">
+      <a class="store-btn btn-call" href="tel:+390823741288">&#128222; Chiama</a>
+      <a class="store-btn btn-whatsapp" href="https://wa.me/393335366229">&#128172; WhatsApp</a>
+      <a class="store-btn btn-map" href="https://maps.google.com/?q=Via+Nazionale+Appia+59+Casagiove+CE" target="_blank">&#128506; Mappa</a>
+    </div>
+  </div>
+
+  <div class="store-card">
+    <div class="store-header">
+      <div class="store-icon">&#127978;</div>
+      <div>
+        <div class="store-city">Lube San Marcellino</div>
+        <div class="store-brand">LUBE STORE</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="store-info-row"><span class="store-info-icon">&#128205;</span><span class="store-info-text">Corso Europa, 199 &mdash; 81030 San Marcellino (CE)</span></div>
+      <div class="store-info-row"><span class="store-info-icon">&#128222;</span><span class="store-info-text">081 3764867</span></div>
+    </div>
+    <div class="store-actions">
+      <a class="store-btn btn-call" href="tel:+390813764867">&#128222; Chiama</a>
+      <a class="store-btn btn-whatsapp" href="https://wa.me/393335748367">&#128172; WhatsApp</a>
+      <a class="store-btn btn-map" href="https://maps.google.com/?q=Corso+Europa+199+San+Marcellino+CE" target="_blank">&#128506; Mappa</a>
+    </div>
+  </div>
+
+  <div class="store-card">
+    <div class="store-header">
+      <div class="store-icon">&#127978;</div>
+      <div>
+        <div class="store-city">Creo San Marcellino</div>
+        <div class="store-brand">CREO STORE</div>
+      </div>
+    </div>
+    <div class="store-body">
+      <div class="store-info-row"><span class="store-info-icon">&#128205;</span><span class="store-info-text">Viale Kennedy, 35 &mdash; 81030 San Marcellino (CE)</span></div>
+      <div class="store-info-row"><span class="store-info-icon">&#128222;</span><span class="store-info-text">081 3764867</span></div>
+    </div>
+    <div class="store-actions">
+      <a class="store-btn btn-call" href="tel:+390813764867">&#128222; Chiama</a>
+      <a class="store-btn btn-whatsapp" href="https://wa.me/393391828448">&#128172; WhatsApp</a>
+      <a class="store-btn btn-map" href="https://maps.google.com/?q=Viale+Kennedy+35+San+Marcellino+CE" target="_blank">&#128506; Mappa</a>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="page" id="page-team">
+  <div class="section-title">Il tuo venditore</div>
+  <div class="section-subtitle">Contatta il tuo referente</div>
+  <div id="team-list"><div class="loading"><div class="spinner"></div>Caricamento team&hellip;</div></div>
+</div>
+
+<!-- CHI SIAMO -->
+<div class="page" id="page-chisiamo">
+  <div class="about-hero">
+    <div class="about-logo-big">L</div>
+    <div class="about-title">Gruppo Lube &amp; Creo</div>
+    <div class="about-subtitle">Cucine &bull; Arredamento &bull; Caserta</div>
+  </div>
+  <div class="about-card">
+    <div class="about-card-title">La nostra storia</div>
+    <div class="about-card-text">Siamo rivenditori autorizzati Lube e Creo in provincia di Caserta. Con tre showroom a Casagiove e San Marcellino, offriamo soluzioni complete per l'arredo della casa: cucine, soggiorni, camere e molto altro. Passione, qualità e attenzione al cliente sono i valori che ci guidano ogni giorno.</div>
+  </div>
+  <div class="about-card">
+    <div class="about-card-title">I brand che trattiamo</div>
+    <div class="about-card-text" style="margin-bottom:12px">Siamo rivenditori autorizzati dei marchi <strong>Lube</strong> e <strong>Creo</strong>, tra le eccellenze italiane del design cucina e arredamento.</div>
+    <div class="brand-chips">
+      <span class="brand-chip" style="background:var(--red);color:white;font-weight:600">&#11088; Lube</span>
+      <span class="brand-chip" style="background:var(--gray-brand);color:white;font-weight:600">&#11088; Creo</span>
+    </div>
+  </div>
+  <div class="about-card">
+    <div class="about-card-title">Contattaci</div>
+    <a class="contatti-row" href="https://wa.me/393335366229">
+      <div class="contatti-icon icon-wa">&#128172;</div>
+      <div class="contatti-info"><div class="contatti-label">WhatsApp</div><div class="contatti-value">Scrivici su WhatsApp</div></div>
+      <div class="contatti-arrow">&#8250;</div>
+    </a>
+    <a class="contatti-row" href="tel:+390823741288">
+      <div class="contatti-icon icon-ph">&#128222;</div>
+      <div class="contatti-info"><div class="contatti-label">Telefono</div><div class="contatti-value">0823 741288</div></div>
+      <div class="contatti-arrow">&#8250;</div>
+    </a>
+    <a class="contatti-row" href="mailto:mastermobilisrl@gmail.com">
+      <div class="contatti-icon icon-mail">&#9993;</div>
+      <div class="contatti-info"><div class="contatti-label">Email</div><div class="contatti-value">mastermobilisrl@gmail.com</div></div>
+      <div class="contatti-arrow">&#8250;</div>
+    </a>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bottom-btn active" onclick="showPage('home',this)"><span class="b-icon">&#127968;</span>Home</button>
+  <button class="bottom-btn" onclick="showPage('commissioni',this)"><span class="b-icon">&#128230;</span>Commissioni</button>
+  <button class="bottom-btn" onclick="showPage('assistenza',this)"><span class="b-icon">&#128295;</span>Assistenza</button>
+  <button class="bottom-btn" onclick="showPage('negozi',this)"><span class="b-icon">&#127978;</span>Negozi</button>
+  <button class="bottom-btn" onclick="showPage('team',this)"><span class="b-icon">&#128100;</span>Team</button>
+  <button class="bottom-btn" onclick="showPage('chisiamo',this)"><span class="b-icon">&#8505;&#65039;</span>Chi siamo</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div id="modal-body"></div>
+    <button class="modal-close" onclick="closeModal()">Chiudi</button>
+  </div>
+</div>
+
+<script>
+const CSV_NOMI = {};
+
+const DATI_RAW = {};
+
+const STATI_LABELS = ['📋 Da Ordinare','🔵 Ordinato','📦 In Giacenza','✅ Consegnato'];
+
+const DATI_COMMISSIONI = {};
+Object.keys(DATI_RAW).forEach(function(k) {
+  DATI_COMMISSIONI[k] = DATI_RAW[k].map(function(item) {
+    return [item[0], item[1], item[2], STATI_LABELS[item[3]] || STATI_LABELS[0]];
+  });
+});
+
+const DEMO_TEAM = [
+  {nome:'Tiziana', negozio:'Lube Caserta'},
+  {nome:'Giulia',  negozio:'Lube Caserta'},
+  {nome:'Davide',  negozio:'Lube Caserta'},
+  {nome:'Valeria', negozio:'Lube San Marcellino'},
+  {nome:'Luisa',   negozio:'Lube San Marcellino'},
+  {nome:'Angela',  negozio:'Creo San Marcellino'}
+];
+
+let commissioniVisibili = [];
+
+function capitalizza(s) { if(!s) return ''; return s.charAt(0).toUpperCase()+s.slice(1).toLowerCase(); }
+
+function accediConCodice() {
+  var codice = document.getElementById('codice-input').value.trim();
+  if(!codice) return;
+  var chiave = Object.keys(DATI_COMMISSIONI).find(function(k){ return k.toLowerCase()===codice.toLowerCase(); });
+  if(!chiave) { document.getElementById('login-error').style.display='block'; return; }
+  document.getElementById('login-error').style.display='none';
+  commissioniVisibili = DATI_COMMISSIONI[chiave];
+  document.getElementById('login-box').style.display='none';
+  document.getElementById('risultati-box').style.display='block';
+  var info = CSV_NOMI[chiave];
+  var intestatario = '';
+  if(info) { var n=capitalizza(info.n); var c=capitalizza(info.c); intestatario = (n&&c)?n+' '+c:(n||c); }
+  var label = intestatario ? intestatario+' — Codice: '+chiave : 'Codice: '+chiave;
+  document.getElementById('codice-attivo').textContent = label+' — '+commissioniVisibili.length+' articoli';
+  renderCommissioni(commissioniVisibili);
+}
+
+function tornaLogin() {
+  document.getElementById('risultati-box').style.display='none';
+  document.getElementById('login-box').style.display='block';
+  document.getElementById('codice-input').value='';
+  commissioniVisibili=[];
+}
+
+function showPage(id,btn) {
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.bottom-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function getStatoClass(stato) {
+  if(!stato) return '';
+  var s=stato.toLowerCase();
+  if(s.includes('ordinare'))return 'stato-lavorazione';
+  if(s.includes('ordinato'))return 'stato-lavorazione';
+  if(s.includes('giacenza'))return 'stato-pianificata';
+  if(s.includes('consegnato'))return 'stato-consegnato';
+  return '';
+}
+function getBadgeClass(stato) {
+  if(!stato) return '';
+  var s=stato.toLowerCase();
+  if(s.includes('ordinare'))return 'badge-lavorazione';
+  if(s.includes('ordinato'))return 'badge-lavorazione';
+  if(s.includes('giacenza'))return 'badge-pianificata';
+  if(s.includes('consegnato'))return 'badge-consegnato';
+  return '';
+}
+
+function renderCommissioni(data) {
+  var list=document.getElementById('commissioni-list');
+  if(!data||!data.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">&#128219;</div><div class="empty-title">Nessun articolo trovato</div></div>';return;}
+  var h='';
+  for(var i=0;i<data.length;i++){
+    var c=data[i];
+    var desc=c[0]||'—';
+    var dataOrdine=c[1]||'';
+    var dataConsegna=c[2]||'';
+    var stato=c[3]||'—';
+    var descBreve=desc.length>90?desc.substring(0,90)+'…':desc;
+    h+='<div class="comm-card '+getStatoClass(stato)+'" onclick="openModal('+i+')">';
+    h+='<div class="comm-top"><span class="comm-id">'+(dataOrdine?'&#128197; '+dataOrdine:'')+'</span>';
+    h+='<span class="stato-badge '+getBadgeClass(stato)+'">'+stato+'</span></div>';
+    h+='<div class="comm-name">'+descBreve+'</div>';
+    h+='<div class="comm-meta">'+(dataConsegna?'<span>&#128666; Consegna: '+dataConsegna+'</span>':'')+'</div>';
+    h+='</div>';
+  }
+  list.innerHTML=h;
+}
+
+function openModal(idx) {
+  var c=commissioniVisibili[idx];
+  var nome=c[0]||'—';
+  var stato=c[3]||'—';
+  var dataOrdine=c[1]||'—';
+  var dataConsegna=c[2]||'Da definire';
+  var steps=[
+    {name:'Da Ordinare',desc:'Articolo non ancora ordinato'},
+    {name:'Ordinato',desc:'Ordine inviato al fornitore'},
+    {name:'In Giacenza',desc:'Prodotto disponibile in magazzino'},
+    {name:'Consegnato',desc:'Consegna completata'}
+  ];
+  var ai=0;
+  var sl=stato.toLowerCase();
+  if(sl.includes('ordinato')&&!sl.includes('da'))ai=1;
+  if(sl.includes('giacenza'))ai=2;
+  if(sl.includes('consegnato'))ai=3;
+  var nomeBreve=nome.length>100?nome.substring(0,100)+'…':nome;
+  var body='<div class="modal-title">'+nomeBreve+'</div>';
+  body+='<div class="modal-id">Dettaglio articolo</div>';
+  body+='<div class="modal-row"><span class="modal-label">Stato</span><span class="modal-value"><span class="stato-badge '+getBadgeClass(stato)+'">'+stato+'</span></span></div>';
+  body+='<div class="modal-row"><span class="modal-label">Data ordine</span><span class="modal-value">'+dataOrdine+'</span></div>';
+  body+='<div class="modal-row"><span class="modal-label">Consegna prevista</span><span class="modal-value">'+dataConsegna+'</span></div>';
+  body+='<div style="margin-top:20px;font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Avanzamento</div>';
+  body+='<div class="timeline">';
+  for(var i=0;i<steps.length;i++){
+    var dc=i<ai?'done':i===ai?'active':'';
+    var lc=i<ai?'done':'';
+    body+='<div class="timeline-step"><div class="timeline-left"><div class="timeline-dot '+dc+'">'+(i<ai?'&#10003;':String(i+1))+'</div>';
+    if(i<steps.length-1)body+='<div class="timeline-line '+lc+'"></div>';
+    body+='</div><div class="timeline-content"><div class="timeline-step-name" style="color:'+(i===ai?'var(--red)':i<ai?'var(--gray)':'var(--black)')+'">'  +steps[i].name+'</div>';
+    body+='<div class="timeline-step-desc">'+steps[i].desc+'</div></div></div>';
+  }
+  body+='</div>';
+  document.getElementById('modal-body').innerHTML=body;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if(!e||e.target===document.getElementById('modal-overlay')||!e.target){
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+}
+
+function renderTeam(data) {
+  var list=document.getElementById('team-list');
+  var h='';
+  for(var i=0;i<data.length;i++){
+    var a=data[i];
+    var ini=a.nome.split(' ').map(function(n){return n[0];}).join('').substring(0,2).toUpperCase();
+    h+='<div class="arreda-card">';
+    h+='<div class="arreda-avatar">'+ini+'</div>';
+    h+='<div class="arreda-info"><div class="arreda-name">'+a.nome+'</div>';
+    h+='<div class="arreda-store">&#128205; '+a.negozio+'</div></div>';
+    h+='</div>';
+  }
+  list.innerHTML=h;
+}
+
+function inviaAssistenza() {
+  var id=document.getElementById('ass-id').value.trim();
+  var nome=document.getElementById('ass-nome').value.trim();
+  var tipo=document.getElementById('ass-tipo').value;
+  var desc=document.getElementById('ass-desc').value.trim();
+  if(!nome||!tipo||!desc){alert('Compila tutti i campi obbligatori');return;}
+  var sogg='Segnalazione: '+tipo+(id?' - Comm.'+id:'');
+  var corpo='Nome: '+nome+'%0D%0ATipo: '+tipo+(id?'%0D%0ACommissione: '+id:'')+'%0D%0A%0D%0ADescrizione:%0D%0A'+encodeURIComponent(desc);
+  window.location.href='mailto:mastermobilisrl@gmail.com?subject='+encodeURIComponent(sogg)+'&body='+corpo;
+  document.getElementById('success-msg').style.display='block';
+  document.getElementById('ass-id').value='';
+  document.getElementById('ass-nome').value='';
+  document.getElementById('ass-tipo').value='';
+  document.getElementById('ass-desc').value='';
+}
+
+function loadData() {
+  renderTeam(DEMO_TEAM);
+  var inp=document.getElementById('codice-input');
+  if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')accediConCodice();});
+}
+
+document.addEventListener('DOMContentLoaded',loadData);
+</script>
+</body>
+</html>
