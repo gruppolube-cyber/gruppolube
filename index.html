@@ -20,11 +20,14 @@
 }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--black); min-height:100vh; max-width:430px; margin:0 auto; position:relative; overflow-x:hidden; }
-.header { background:var(--black); color:var(--white); padding:18px 20px 14px; position:sticky; top:0; z-index:100; display:flex; align-items:center; gap:14px; box-shadow:0 2px 16px rgba(0,0,0,0.3); }
-.header-logo { width:38px; height:38px; background:var(--red); border-radius:8px; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:white; flex-shrink:0; }
+
+/* HEADER */
+.header { background:var(--black); color:var(--white); padding:12px 20px; position:sticky; top:0; z-index:100; display:flex; align-items:center; gap:14px; box-shadow:0 2px 16px rgba(0,0,0,0.3); }
+.header-logo-img { height:38px; width:auto; display:block; filter:brightness(0) invert(1); }
 .header-text { flex:1; }
 .header-brand { font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:600; letter-spacing:0.3px; line-height:1.2; }
 .header-sub { font-size:10px; color:rgba(255,255,255,0.5); letter-spacing:1.5px; text-transform:uppercase; margin-top:1px; }
+
 .page { display:none; padding:20px 16px 100px; animation:fadeIn 0.25s ease; }
 .page.active { display:block; }
 #page-home { padding:0 0 100px; }
@@ -120,8 +123,6 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 .about-card-text { font-size:14px; color:var(--gray-dark); line-height:1.6; }
 .brand-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
 .brand-chip { padding:6px 14px; background:var(--gray-light); border-radius:20px; font-size:12px; font-weight:500; color:var(--gray-dark); }
-
-/* CONTATTI */
 .contatti-row { display:flex; align-items:center; gap:12px; padding:14px 0; border-bottom:1px solid var(--gray-light); text-decoration:none; color:inherit; }
 .contatti-row:last-child { border-bottom:none; }
 .contatti-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
@@ -144,7 +145,7 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 /* BOTTOM NAV */
 .bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; background:var(--white); border-top:1px solid #e8e8e6; display:flex; z-index:100; padding-bottom:env(safe-area-inset-bottom); }
 .bottom-btn { flex:1; padding:10px 4px 8px; border:none; background:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:9px; font-weight:500; color:var(--gray); letter-spacing:0.3px; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:3px; transition:color 0.2s; }
-.bottom-btn .b-icon { font-size:20px; }
+.bottom-btn svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; transition:stroke 0.2s; }
 .bottom-btn.active { color:var(--red); }
 
 /* HOME */
@@ -158,10 +159,10 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 .home-body { padding:20px 16px 0; }
 .home-section-label { font-size:11px; font-weight:600; color:var(--gray); letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; margin-top:8px; }
 .home-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
-.home-action-card { background:var(--white); border-radius:var(--radius); padding:16px 14px; box-shadow:var(--shadow); cursor:pointer; text-decoration:none; color:var(--black); display:flex; flex-direction:column; gap:8px; transition:transform 0.15s; }
+.home-action-card { background:var(--white); border-radius:var(--radius); padding:16px 14px; box-shadow:var(--shadow); cursor:pointer; text-decoration:none; color:var(--black); display:flex; flex-direction:column; gap:10px; transition:transform 0.15s; }
 .home-action-card:active { transform:scale(0.97); }
 .home-action-card.primary { background:var(--red); color:white; }
-.home-action-card .ac-icon { font-size:28px; }
+.home-action-card svg { width:28px; height:28px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
 .home-action-card .ac-title { font-size:13px; font-weight:600; line-height:1.2; }
 .home-action-card .ac-sub { font-size:11px; opacity:0.7; }
 .home-banner { border-radius:var(--radius); overflow:hidden; margin-bottom:20px; position:relative; height:100px; background:linear-gradient(135deg,var(--black) 0%,#3d0000 100%); display:flex; align-items:center; padding:0 20px; text-decoration:none; }
@@ -171,8 +172,14 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 </style>
 </head>
 <body>
+
+<!-- HEADER con logo Gruppo Lube -->
 <div class="header">
-  <div class="header-logo">L</div>
+  <img class="header-logo-img" 
+       src="https://www.gruppolube.it/wp-content/uploads/2021/01/logo-gruppo-lube.png" 
+       alt="Gruppo Lube"
+       onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex'">
+  <div id="logo-fallback" style="display:none;width:38px;height:38px;background:var(--red);border-radius:8px;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:white;flex-shrink:0;">L</div>
   <div class="header-text">
     <div class="header-brand">Gruppo Lube &amp; Creo</div>
     <div class="header-sub">Cucine &bull; Arredamento</div>
@@ -193,27 +200,37 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
   <div class="home-body">
     <div class="home-section-label">Accesso rapido</div>
     <div class="home-actions">
+
+      <!-- Le mie commissioni -->
       <div class="home-action-card primary" onclick="showPage('commissioni',document.querySelectorAll('.bottom-btn')[1])">
-        <div class="ac-icon">&#128230;</div>
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
         <div class="ac-title">Le mie commissioni</div>
         <div class="ac-sub">Traccia il tuo ordine</div>
       </div>
+
+      <!-- Assistenza -->
       <div class="home-action-card" onclick="showPage('assistenza',document.querySelectorAll('.bottom-btn')[2])">
-        <div class="ac-icon">&#128295;</div>
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.19 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z" style="stroke:var(--gray-dark)"/></svg>
         <div class="ac-title">Assistenza</div>
         <div class="ac-sub">Apri una segnalazione</div>
       </div>
+
+      <!-- Il tuo venditore -->
       <div class="home-action-card" onclick="showPage('team',document.querySelectorAll('.bottom-btn')[4])">
-        <div class="ac-icon">&#128100;</div>
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         <div class="ac-title">Il tuo venditore</div>
         <div class="ac-sub">Contatta il team</div>
       </div>
+
+      <!-- Showroom -->
       <div class="home-action-card" onclick="showPage('negozi',document.querySelectorAll('.bottom-btn')[3])">
-        <div class="ac-icon">&#127978;</div>
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><rect x="9" y="11" width="6" height="11" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
         <div class="ac-title">Showroom</div>
         <div class="ac-sub">3 negozi in Campania</div>
       </div>
+
     </div>
+
     <div class="home-section-label">Scopri il nostro catalogo</div>
     <div style="margin-bottom:20px;text-align:center;">
       <a href="https://www.mondolube.it" target="_blank" style="display:inline-block;background:var(--red);color:white;padding:16px 32px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;text-decoration:none;box-shadow:var(--shadow);letter-spacing:0.3px;">
@@ -301,15 +318,8 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 <div class="page" id="page-negozi">
   <div class="section-title">Punti vendita</div>
   <div class="section-subtitle">3 showroom in provincia di Caserta</div>
-
   <div class="store-card">
-    <div class="store-header">
-      <div class="store-icon">&#127978;</div>
-      <div>
-        <div class="store-city">Lube Caserta</div>
-        <div class="store-brand">LUBE STORE</div>
-      </div>
-    </div>
+    <div class="store-header"><div class="store-icon">&#127978;</div><div><div class="store-city">Lube Caserta</div><div class="store-brand">LUBE STORE</div></div></div>
     <div class="store-body">
       <div class="store-info-row"><span class="store-info-icon">&#128205;</span><span class="store-info-text">Via Nazionale Appia, 59 &mdash; 81022 Casagiove (CE)</span></div>
       <div class="store-info-row"><span class="store-info-icon">&#128222;</span><span class="store-info-text">0823 741288</span></div>
@@ -320,15 +330,8 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
       <a class="store-btn btn-map" href="https://maps.google.com/?q=Via+Nazionale+Appia+59+Casagiove+CE" target="_blank">&#128506; Mappa</a>
     </div>
   </div>
-
   <div class="store-card">
-    <div class="store-header">
-      <div class="store-icon">&#127978;</div>
-      <div>
-        <div class="store-city">Lube San Marcellino</div>
-        <div class="store-brand">LUBE STORE</div>
-      </div>
-    </div>
+    <div class="store-header"><div class="store-icon">&#127978;</div><div><div class="store-city">Lube San Marcellino</div><div class="store-brand">LUBE STORE</div></div></div>
     <div class="store-body">
       <div class="store-info-row"><span class="store-info-icon">&#128205;</span><span class="store-info-text">Corso Europa, 199 &mdash; 81030 San Marcellino (CE)</span></div>
       <div class="store-info-row"><span class="store-info-icon">&#128222;</span><span class="store-info-text">081 3764867</span></div>
@@ -339,15 +342,8 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
       <a class="store-btn btn-map" href="https://maps.google.com/?q=Corso+Europa+199+San+Marcellino+CE" target="_blank">&#128506; Mappa</a>
     </div>
   </div>
-
   <div class="store-card">
-    <div class="store-header">
-      <div class="store-icon">&#127978;</div>
-      <div>
-        <div class="store-city">Creo San Marcellino</div>
-        <div class="store-brand">CREO STORE</div>
-      </div>
-    </div>
+    <div class="store-header"><div class="store-icon">&#127978;</div><div><div class="store-city">Creo San Marcellino</div><div class="store-brand">CREO STORE</div></div></div>
     <div class="store-body">
       <div class="store-info-row"><span class="store-info-icon">&#128205;</span><span class="store-info-text">Viale Kennedy, 35 &mdash; 81030 San Marcellino (CE)</span></div>
       <div class="store-info-row"><span class="store-info-icon">&#128222;</span><span class="store-info-text">081 3764867</span></div>
@@ -376,7 +372,7 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
   </div>
   <div class="about-card">
     <div class="about-card-title">La nostra storia</div>
-    <div class="about-card-text">Siamo rivenditori autorizzati Lube e Creo in provincia di Caserta. Con tre showroom a Casagiove e San Marcellino, offriamo soluzioni complete per l'arredo della casa: cucine, soggiorni, camere e molto altro. Passione, qualità e attenzione al cliente sono i valori che ci guidano ogni giorno.</div>
+    <div class="about-card-text">Siamo rivenditori autorizzati Lube e Creo in provincia di Caserta. Con tre showroom a Casagiove e San Marcellino, offriamo soluzioni complete per l'arredo della casa: cucine, soggiorni, camere e molto altro. Passione, qualit&agrave; e attenzione al cliente sono i valori che ci guidano ogni giorno.</div>
   </div>
   <div class="about-card">
     <div class="about-card-title">I brand che trattiamo</div>
@@ -388,7 +384,7 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
   </div>
   <div class="about-card">
     <div class="about-card-title">Contattaci</div>
-    <a class="contatti-row" href="https://wa.me/393335366229">
+    <a class="contatti-row" href="https://wa.me/393335725188">
       <div class="contatti-icon icon-wa">&#128172;</div>
       <div class="contatti-info"><div class="contatti-label">WhatsApp</div><div class="contatti-value">Scrivici su WhatsApp</div></div>
       <div class="contatti-arrow">&#8250;</div>
@@ -406,14 +402,32 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- BOTTOM NAV con icone SVG outline -->
 <div class="bottom-nav">
-  <button class="bottom-btn active" onclick="showPage('home',this)"><span class="b-icon">&#127968;</span>Home</button>
-  <button class="bottom-btn" onclick="showPage('commissioni',this)"><span class="b-icon">&#128230;</span>Commissioni</button>
-  <button class="bottom-btn" onclick="showPage('assistenza',this)"><span class="b-icon">&#128295;</span>Assistenza</button>
-  <button class="bottom-btn" onclick="showPage('negozi',this)"><span class="b-icon">&#127978;</span>Negozi</button>
-  <button class="bottom-btn" onclick="showPage('team',this)"><span class="b-icon">&#128100;</span>Team</button>
-  <button class="bottom-btn" onclick="showPage('chisiamo',this)"><span class="b-icon">&#8505;&#65039;</span>Chi siamo</button>
+  <button class="bottom-btn active" onclick="showPage('home',this)">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+    Home
+  </button>
+  <button class="bottom-btn" onclick="showPage('commissioni',this)">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+    Commissioni
+  </button>
+  <button class="bottom-btn" onclick="showPage('assistenza',this)">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.19 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+    Assistenza
+  </button>
+  <button class="bottom-btn" onclick="showPage('negozi',this)">
+    <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3z"/><path d="M5 7v13a1 1 0 001 1h12a1 1 0 001-1V7"/><path d="M10 12h4"/><rect x="9" y="11" width="6" height="5" rx="1"/></svg>
+    Negozi
+  </button>
+  <button class="bottom-btn" onclick="showPage('team',this)">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    Team
+  </button>
+  <button class="bottom-btn" onclick="showPage('chisiamo',this)">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Chi siamo
+  </button>
 </div>
 
 <!-- MODAL -->
@@ -427,11 +441,8 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 
 <script>
 const CSV_NOMI = {};
-
 const DATI_RAW = {};
-
 const STATI_LABELS = ['📋 Da Ordinare','🔵 Ordinato','📦 In Giacenza','✅ Consegnato'];
-
 const DATI_COMMISSIONI = {};
 Object.keys(DATI_RAW).forEach(function(k) {
   DATI_COMMISSIONI[k] = DATI_RAW[k].map(function(item) {
@@ -463,7 +474,7 @@ function accediConCodice() {
   document.getElementById('risultati-box').style.display='block';
   var info = CSV_NOMI[chiave];
   var intestatario = '';
-  if(info) { var n=capitalizza(info.n); var c=capitalizza(info.c); intestatario = (n&&c)?n+' '+c:(n||c); }
+  if(info) { var n=capitalizza(info.n); var c=capitalizza(info.c); intestatario=(n&&c)?n+' '+c:(n||c); }
   var label = intestatario ? intestatario+' — Codice: '+chiave : 'Codice: '+chiave;
   document.getElementById('codice-attivo').textContent = label+' — '+commissioniVisibili.length+' articoli';
   renderCommissioni(commissioniVisibili);
@@ -505,7 +516,7 @@ function getBadgeClass(stato) {
 
 function renderCommissioni(data) {
   var list=document.getElementById('commissioni-list');
-  if(!data||!data.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">&#128219;</div><div class="empty-title">Nessun articolo trovato</div></div>';return;}
+  if(!data||!data.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">Nessun articolo trovato</div></div>';return;}
   var h='';
   for(var i=0;i<data.length;i++){
     var c=data[i];
@@ -515,10 +526,10 @@ function renderCommissioni(data) {
     var stato=c[3]||'—';
     var descBreve=desc.length>90?desc.substring(0,90)+'…':desc;
     h+='<div class="comm-card '+getStatoClass(stato)+'" onclick="openModal('+i+')">';
-    h+='<div class="comm-top"><span class="comm-id">'+(dataOrdine?'&#128197; '+dataOrdine:'')+'</span>';
+    h+='<div class="comm-top"><span class="comm-id">'+(dataOrdine?'📅 '+dataOrdine:'')+'</span>';
     h+='<span class="stato-badge '+getBadgeClass(stato)+'">'+stato+'</span></div>';
     h+='<div class="comm-name">'+descBreve+'</div>';
-    h+='<div class="comm-meta">'+(dataConsegna?'<span>&#128666; Consegna: '+dataConsegna+'</span>':'')+'</div>';
+    h+='<div class="comm-meta">'+(dataConsegna?'<span>🚚 Consegna: '+dataConsegna+'</span>':'')+'</div>';
     h+='</div>';
   }
   list.innerHTML=h;
@@ -552,9 +563,9 @@ function openModal(idx) {
   for(var i=0;i<steps.length;i++){
     var dc=i<ai?'done':i===ai?'active':'';
     var lc=i<ai?'done':'';
-    body+='<div class="timeline-step"><div class="timeline-left"><div class="timeline-dot '+dc+'">'+(i<ai?'&#10003;':String(i+1))+'</div>';
+    body+='<div class="timeline-step"><div class="timeline-left"><div class="timeline-dot '+dc+'">'+(i<ai?'✓':String(i+1))+'</div>';
     if(i<steps.length-1)body+='<div class="timeline-line '+lc+'"></div>';
-    body+='</div><div class="timeline-content"><div class="timeline-step-name" style="color:'+(i===ai?'var(--red)':i<ai?'var(--gray)':'var(--black)')+'">'  +steps[i].name+'</div>';
+    body+='</div><div class="timeline-content"><div class="timeline-step-name" style="color:'+(i===ai?'var(--red)':i<ai?'var(--gray)':'var(--black)')+'">'+steps[i].name+'</div>';
     body+='<div class="timeline-step-desc">'+steps[i].desc+'</div></div></div>';
   }
   body+='</div>';
@@ -577,7 +588,7 @@ function renderTeam(data) {
     h+='<div class="arreda-card">';
     h+='<div class="arreda-avatar">'+ini+'</div>';
     h+='<div class="arreda-info"><div class="arreda-name">'+a.nome+'</div>';
-    h+='<div class="arreda-store">&#128205; '+a.negozio+'</div></div>';
+    h+='<div class="arreda-store">📍 '+a.negozio+'</div></div>';
     h+='</div>';
   }
   list.innerHTML=h;
