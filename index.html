@@ -263,21 +263,21 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 
       <!-- Assistenza -->
       <div class="home-action-card" onclick="showPage('assistenza',document.querySelectorAll('.bottom-btn')[2])">
-        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.19 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z" style="stroke:var(--gray-dark)"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         <div class="ac-title">Assistenza</div>
         <div class="ac-sub">Apri una segnalazione</div>
       </div>
 
-      <!-- Il tuo venditore -->
+      <!-- Il tuo arredatore -->
       <div class="home-action-card" onclick="showPage('team',document.querySelectorAll('.bottom-btn')[4])">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        <div class="ac-title">Il tuo venditore</div>
+        <div class="ac-title">Il tuo arredatore</div>
         <div class="ac-sub">Contatta il team</div>
       </div>
 
       <!-- Showroom -->
       <div class="home-action-card" onclick="showPage('negozi',document.querySelectorAll('.bottom-btn')[3])">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><rect x="9" y="11" width="6" height="11" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
         <div class="ac-title">Showroom</div>
         <div class="ac-sub">3 negozi in Campania</div>
       </div>
@@ -293,22 +293,13 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
     <!-- Card valutazione -->
     <div class="cs-card" style="margin-bottom:20px;cursor:pointer;border:1.5px solid var(--red);" onclick="showPage('satisfaction',document.querySelectorAll('.bottom-btn')[6])">
       <div style="display:flex;align-items:center;gap:14px;">
-        <div style="font-size:32px;">&#9733;</div>
-        <div>
+        <div style="font-size:32px;color:#f59e0b;">&#9733;</div>
+        <div style="flex:1">
           <div style="font-size:14px;font-weight:600;color:var(--red);">Lascia una recensione</div>
           <div style="font-size:12px;color:var(--gray);margin-top:2px;">Valuta la tua esperienza con noi</div>
         </div>
         <div style="margin-left:auto;color:var(--gray);font-size:18px;">&#8250;</div>
       </div>
-    </div>
-
-        <div style="background:var(--white);border-radius:var(--radius);padding:16px;margin-bottom:16px;box-shadow:var(--shadow);border:1.5px solid var(--red);cursor:pointer;display:flex;align-items:center;gap:14px;" onclick="showPage('satisfaction',document.querySelectorAll('.bottom-btn')[6])">
-      <div style="font-size:30px;color:#f59e0b;">&#9733;</div>
-      <div style="flex:1">
-        <div style="font-size:14px;font-weight:600;color:var(--red);">Lascia una recensione</div>
-        <div style="font-size:12px;color:var(--gray);margin-top:2px;">Valuta la tua esperienza con noi</div>
-      </div>
-      <div style="color:var(--gray);font-size:18px;">&#8250;</div>
     </div>
     <a class="home-banner" href="https://www.mondolube.it" target="_blank">
       <div class="home-banner-text">
