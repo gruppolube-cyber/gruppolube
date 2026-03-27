@@ -134,6 +134,34 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 .contatti-value { font-size:14px; font-weight:500; margin-top:1px; }
 .contatti-arrow { color:var(--gray); font-size:16px; }
 
+
+/* CUSTOMER SATISFACTION */
+.cs-card { background:var(--white); border-radius:var(--radius); padding:20px; margin-bottom:12px; box-shadow:var(--shadow); }
+.cs-card-title { font-size:14px; font-weight:600; color:var(--gray-dark); margin-bottom:12px; }
+.cs-stars { display:flex; gap:8px; justify-content:center; margin-bottom:4px; }
+.cs-star { font-size:32px; cursor:pointer; transition:transform 0.15s; opacity:0.3; }
+.cs-star.active { opacity:1; }
+.cs-star:active { transform:scale(1.2); }
+.cs-star-label { text-align:center; font-size:11px; color:var(--gray); height:16px; margin-bottom:8px; }
+.cs-overall { background:linear-gradient(135deg,#8B0000,#6b0000); border-radius:var(--radius); padding:20px; margin-bottom:12px; color:white; text-align:center; }
+.cs-overall-title { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:400; margin-bottom:4px; }
+.cs-overall-sub { font-size:11px; opacity:0.7; margin-bottom:16px; }
+.cs-overall-stars { display:flex; gap:10px; justify-content:center; }
+.cs-overall-star { font-size:36px; cursor:pointer; transition:transform 0.15s; opacity:0.4; }
+.cs-overall-star.active { opacity:1; }
+.cs-overall-star:active { transform:scale(1.2); }
+.cs-overall-label { font-size:12px; opacity:0.8; margin-top:8px; height:18px; }
+.cs-submit { width:100%; padding:16px; background:var(--red); color:white; border:none; border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:15px; font-weight:600; cursor:pointer; margin-top:8px; transition:background 0.2s; }
+.cs-submit:active { background:var(--red-dark); }
+.cs-submit:disabled { background:#ccc; cursor:not-allowed; }
+.cs-thank { display:none; background:#d1fae5; color:#065f46; padding:20px; border-radius:var(--radius); text-align:center; margin-top:12px; }
+.cs-thank-icon { font-size:40px; margin-bottom:8px; }
+.cs-thank-title { font-size:16px; font-weight:600; margin-bottom:4px; }
+.cs-thank-sub { font-size:13px; }
+.cs-note { margin-bottom:16px; }
+.cs-note textarea { width:100%; padding:13px 16px; border:1.5px solid #e8e8e6; border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:14px; background:var(--white); color:var(--black); outline:none; resize:none; height:90px; }
+.cs-note textarea:focus { border-color:var(--red); }
+
 /* EMPTY / LOADING */
 .empty-state { text-align:center; padding:48px 24px; }
 .empty-icon { font-size:48px; margin-bottom:12px; }
@@ -169,6 +197,31 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
 .home-banner-text { position:relative; z-index:2; }
 .home-banner-title { font-family:'Cormorant Garamond',serif; font-size:18px; color:white; font-weight:600; margin-bottom:2px; letter-spacing:0.5px; }
 .home-banner-sub { font-size:11px; color:rgba(255,255,255,0.6); }
+
+/* CUSTOMER SATISFACTION */
+.cs-card { background:var(--white); border-radius:var(--radius); padding:20px; margin-bottom:12px; box-shadow:var(--shadow); }
+.cs-card-title { font-size:14px; font-weight:600; color:var(--gray-dark); margin-bottom:12px; }
+.cs-stars { display:flex; gap:8px; justify-content:center; margin-bottom:4px; }
+.cs-star { font-size:32px; cursor:pointer; transition:transform 0.15s; opacity:0.25; color:#f59e0b; }
+.cs-star.active { opacity:1; }
+.cs-star:active { transform:scale(1.2); }
+.cs-star-label { text-align:center; font-size:11px; color:var(--gray); height:18px; margin-bottom:8px; }
+.cs-overall { background:linear-gradient(135deg,#8B0000,#6b0000); border-radius:var(--radius); padding:20px; margin-bottom:12px; color:white; text-align:center; }
+.cs-overall-title { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:400; margin-bottom:4px; }
+.cs-overall-sub { font-size:11px; opacity:0.7; margin-bottom:16px; }
+.cs-overall-stars { display:flex; gap:10px; justify-content:center; }
+.cs-overall-star { font-size:38px; cursor:pointer; transition:transform 0.15s; opacity:0.35; color:#fcd34d; }
+.cs-overall-star.active { opacity:1; }
+.cs-overall-star:active { transform:scale(1.2); }
+.cs-overall-label { font-size:12px; opacity:0.85; margin-top:10px; min-height:18px; }
+.cs-submit { width:100%; padding:16px; background:var(--red); color:white; border:none; border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:15px; font-weight:600; cursor:pointer; margin-top:8px; }
+.cs-submit:active { background:var(--red-dark); }
+.cs-thank { display:none; background:#d1fae5; color:#065f46; padding:24px 20px; border-radius:var(--radius); text-align:center; margin-top:12px; }
+.cs-thank-icon { font-size:48px; margin-bottom:10px; }
+.cs-thank-title { font-size:16px; font-weight:600; margin-bottom:6px; }
+.cs-thank-sub { font-size:13px; }
+.cs-note textarea { width:100%; padding:13px 16px; border:1.5px solid #e8e8e6; border-radius:var(--radius); font-family:'DM Sans',sans-serif; font-size:14px; background:var(--white); color:var(--black); outline:none; resize:none; height:90px; transition:border-color 0.2s; }
+.cs-note textarea:focus { border-color:var(--red); }
 </style>
 </head>
 <body>
@@ -236,6 +289,26 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
       <a href="https://www.mondolube.it" target="_blank" style="display:inline-block;background:var(--red);color:white;padding:16px 32px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;text-decoration:none;box-shadow:var(--shadow);letter-spacing:0.3px;">
         &#127968; Visita mondolube.it
       </a>
+    </div>
+    <!-- Card valutazione -->
+    <div class="cs-card" style="margin-bottom:20px;cursor:pointer;border:1.5px solid var(--red);" onclick="showPage('satisfaction',document.querySelectorAll('.bottom-btn')[6])">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="font-size:32px;">&#9733;</div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--red);">Lascia una recensione</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:2px;">Valuta la tua esperienza con noi</div>
+        </div>
+        <div style="margin-left:auto;color:var(--gray);font-size:18px;">&#8250;</div>
+      </div>
+    </div>
+
+        <div style="background:var(--white);border-radius:var(--radius);padding:16px;margin-bottom:16px;box-shadow:var(--shadow);border:1.5px solid var(--red);cursor:pointer;display:flex;align-items:center;gap:14px;" onclick="showPage('satisfaction',document.querySelectorAll('.bottom-btn')[6])">
+      <div style="font-size:30px;color:#f59e0b;">&#9733;</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:var(--red);">Lascia una recensione</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:2px;">Valuta la tua esperienza con noi</div>
+      </div>
+      <div style="color:var(--gray);font-size:18px;">&#8250;</div>
     </div>
     <a class="home-banner" href="https://www.mondolube.it" target="_blank">
       <div class="home-banner-text">
@@ -306,9 +379,9 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
   </div>
   <div class="about-card" style="margin-top:14px">
     <div class="about-card-title" style="font-size:15px">Contatto diretto</div>
-    <a class="contatti-row" href="mailto:mastermobilisrl@gmail.com">
+    <a class="contatti-row" href="/cdn-cgi/l/email-protection#8ce1edfff8e9fee1e3eee5e0e5fffee0ccebe1ede5e0a2efe3e1">
       <div class="contatti-icon icon-mail">&#9993;</div>
-      <div class="contatti-info"><div class="contatti-label">Email</div><div class="contatti-value">mastermobilisrl@gmail.com</div></div>
+      <div class="contatti-info"><div class="contatti-label">Email</div><div class="contatti-value"><span class="__cf_email__" data-cfemail="3e535f4d4a5b4c53515c5752574d4c527e59535f5752105d5153">[email&#160;protected]</span></div></div>
       <div class="contatti-arrow">&#8250;</div>
     </a>
   </div>
@@ -394,11 +467,86 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
       <div class="contatti-info"><div class="contatti-label">Telefono</div><div class="contatti-value">0823 741288</div></div>
       <div class="contatti-arrow">&#8250;</div>
     </a>
-    <a class="contatti-row" href="mailto:mastermobilisrl@gmail.com">
+    <a class="contatti-row" href="/cdn-cgi/l/email-protection#acc1cddfd8c9dec1c3cec5c0c5dfdec0eccbc1cdc5c082cfc3c1">
       <div class="contatti-icon icon-mail">&#9993;</div>
-      <div class="contatti-info"><div class="contatti-label">Email</div><div class="contatti-value">mastermobilisrl@gmail.com</div></div>
+      <div class="contatti-info"><div class="contatti-label">Email</div><div class="contatti-value"><span class="__cf_email__" data-cfemail="bdd0dccec9d8cfd0d2dfd4d1d4cecfd1fddad0dcd4d193ded2d0">[email&#160;protected]</span></div></div>
       <div class="contatti-arrow">&#8250;</div>
     </a>
+  </div>
+</div>
+
+
+<!-- CUSTOMER SATISFACTION -->
+<div class="page" id="page-satisfaction">
+  <div id="cs-form-box">
+    <div class="section-title">La tua opinione</div>
+    <div class="section-subtitle">Aiutaci a migliorare il nostro servizio</div>
+    <div class="cs-overall">
+      <div class="cs-overall-title">Valutazione generale</div>
+      <div class="cs-overall-sub">Quanto sei soddisfatto della tua esperienza?</div>
+      <div class="cs-overall-stars" id="stars-overall">
+        <span class="cs-overall-star" onclick="setRating('overall',1)">&#9733;</span>
+        <span class="cs-overall-star" onclick="setRating('overall',2)">&#9733;</span>
+        <span class="cs-overall-star" onclick="setRating('overall',3)">&#9733;</span>
+        <span class="cs-overall-star" onclick="setRating('overall',4)">&#9733;</span>
+        <span class="cs-overall-star" onclick="setRating('overall',5)">&#9733;</span>
+      </div>
+      <div class="cs-overall-label" id="label-overall"></div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-title">&#127775; Qualit&agrave; del prodotto</div>
+      <div class="cs-stars" id="stars-qualita">
+        <span class="cs-star" onclick="setRating('qualita',1)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('qualita',2)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('qualita',3)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('qualita',4)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('qualita',5)">&#9733;</span>
+      </div>
+      <div class="cs-star-label" id="label-qualita"></div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-title">&#128666; Rispetto dei tempi di consegna</div>
+      <div class="cs-stars" id="stars-consegna">
+        <span class="cs-star" onclick="setRating('consegna',1)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('consegna',2)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('consegna',3)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('consegna',4)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('consegna',5)">&#9733;</span>
+      </div>
+      <div class="cs-star-label" id="label-consegna"></div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-title">&#128100; Cortesia del personale</div>
+      <div class="cs-stars" id="stars-cortesia">
+        <span class="cs-star" onclick="setRating('cortesia',1)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('cortesia',2)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('cortesia',3)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('cortesia',4)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('cortesia',5)">&#9733;</span>
+      </div>
+      <div class="cs-star-label" id="label-cortesia"></div>
+    </div>
+    <div class="cs-card">
+      <div class="cs-card-title">&#128295; Montaggio e installazione</div>
+      <div class="cs-stars" id="stars-montaggio">
+        <span class="cs-star" onclick="setRating('montaggio',1)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('montaggio',2)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('montaggio',3)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('montaggio',4)">&#9733;</span>
+        <span class="cs-star" onclick="setRating('montaggio',5)">&#9733;</span>
+      </div>
+      <div class="cs-star-label" id="label-montaggio"></div>
+    </div>
+    <div class="cs-card cs-note">
+      <div class="cs-card-title">&#128172; Commento (opzionale)</div>
+      <textarea id="cs-commento" placeholder="Raccontaci la tua esperienza..."></textarea>
+    </div>
+    <button class="cs-submit" onclick="inviaFeedback()">&#9733; Invia la tua valutazione</button>
+  </div>
+  <div class="cs-thank" id="cs-thank">
+    <div class="cs-thank-icon">&#127775;</div>
+    <div class="cs-thank-title">Grazie per il tuo feedback!</div>
+    <div class="cs-thank-sub">La tua opinione ci aiuta a migliorare ogni giorno.</div>
   </div>
 </div>
 
@@ -428,6 +576,10 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     Chi siamo
   </button>
+  <button class="bottom-btn" onclick="showPage('satisfaction',this)">
+    <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+    Valutaci
+  </button>
 </div>
 
 <!-- MODAL -->
@@ -439,7 +591,7 @@ body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--bl
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const CSV_NOMI = {};
 const DATI_RAW = {};
 const STATI_LABELS = ['📋 Da Ordinare','🔵 Ordinato','📦 In Giacenza','✅ Consegnato'];
@@ -605,18 +757,4 @@ function inviaAssistenza() {
   window.location.href='mailto:mastermobilisrl@gmail.com?subject='+encodeURIComponent(sogg)+'&body='+corpo;
   document.getElementById('success-msg').style.display='block';
   document.getElementById('ass-id').value='';
-  document.getElementById('ass-nome').value='';
-  document.getElementById('ass-tipo').value='';
-  document.getElementById('ass-desc').value='';
-}
-
-function loadData() {
-  renderTeam(DEMO_TEAM);
-  var inp=document.getElementById('codice-input');
-  if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')accediConCodice();});
-}
-
-document.addEventListener('DOMContentLoaded',loadData);
-</script>
-</body>
-</html>
+  document.getElementB
