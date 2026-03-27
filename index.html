@@ -748,4 +748,50 @@ function inviaAssistenza() {
   window.location.href='mailto:mastermobilisrl@gmail.com?subject='+encodeURIComponent(sogg)+'&body='+corpo;
   document.getElementById('success-msg').style.display='block';
   document.getElementById('ass-id').value='';
+  document.getElementById('ass-nome').value='';
+  document.getElementById('ass-tipo').value='';
+  document.getElementById('ass-desc').value='';
+}
+
+var ratings = {};
+var ratingLabels = {
+  1:'Molto insoddisfatto 😞',
+  2:'Insoddisfatto 😐',
+  3:'Nella media 🙂',
+  4:'Soddisfatto 😊',
+  5:'Molto soddisfatto 🤩'
+};
+
+function setRating(category, value) {
+  ratings[category] = value;
+  var container = document.getElementById('stars-'+category);
+  var stars = container ? container.querySelectorAll('.cs-star, .cs-overall-star') : [];
+  stars.forEach(function(s, i) {
+    s.classList.toggle('active', i < value);
+  });
+  var label = document.getElementById('label-'+category);
+  if(label) label.textContent = ratingLabels[value] || '';
+}
+
+function inviaFeedback() {
+  if(!ratings['overall']) { alert('Inserisci almeno la valutazione generale'); return; }
+  var commento = document.getElementById('cs-commento') ? document.getElementById('cs-commento').value : '';
+  var sogg = 'Feedback cliente - Valutazione: '+ratings['overall']+'/5';
+  var corpo = 'Valutazione generale: '+ratings['overall']+'/5'
+    +(ratings['qualita'] ? '%0D%0AQualità prodotto: '+ratings['qualita']+'/5' : '')
+    +(ratings['consegna'] ? '%0D%0ATempi consegna: '+ratings['consegna']+'/5' : '')
+    +(ratings['cortesia'] ? '%0D%0ACortesia personale: '+ratings['cortesia']+'/5' : '')
+    +(ratings['montaggio'] ? '%0D%0AMontaggio: '+ratings['montaggio']+'/5' : '')
+    +(commento ? '%0D%0A%0D%0ACommento:%0D%0A'+encodeURIComponent(commento) : '');
+  window.location.href='mailto:mastermobilisrl@gmail.com?subject='+encodeURIComponent(sogg)+'&body='+corpo;
+  document.getElementById('cs-form-box').style.display='none';
+  document.getElementById('cs-thank').style.display='block';
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  renderTeam(DEMO_TEAM);
+});
+</script>
+</body>
+</html>
   document.getElementB
